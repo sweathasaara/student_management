@@ -12,7 +12,13 @@ public class MainApp {
             System.out.println("3. Search by Name");
             System.out.println("4. Search by Roll No");
             System.out.println("5. Delete Student");
-            System.out.println("6. Exit");
+            System.out.println("6. Mark Student Present");
+            System.out.println("7. View All Present Students");
+            System.out.println("8. View Students in Alphabetical Order");
+            System.out.println("9. Check if Student is Present");
+            System.out.println("10. Remove Student - Mark Absent");
+            System.out.println("11. Show Total Present Students");
+            System.out.println("12. Exit");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -51,14 +57,38 @@ public class MainApp {
                     int deleteRoll = sc.nextInt();
                     service.deleteStudent(deleteRoll);
                     break;
-
-                case 6:
-                    System.out.println("Exiting...");
+                 case 6:
+                    System.out.print("Enter Student Name: ");
+                    service.markPresent(sc.nextLine());
+                    break;
+                case 7:
+                    service.viewPresentStudents();
+                    break;
+                case 8:
+                    service.viewAlphabeticalStudents();
+                    break;
+                case 9:
+                    System.out.print(
+                        "Enter Name: "
+                    );
+                    service.checkStudentPresent(
+                        sc.nextLine()
+                    );
+                    break;
+                case 10:
+                    System.out.print("Enter Name: ");
+                    service.markAbsent( sc.nextLine());
+                    break;
+                case 11:
+                    service.totalPresentStudents();
+                    break;
+                case 12:
+                    System.out.println(  "Exiting...");
                     return;
-
                 default:
                     System.out.println("Invalid choice!");
             }
         }
+
     }
 }

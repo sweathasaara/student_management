@@ -1,6 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class StudentService {
+        private Set<String> attendance = new HashSet<>();
+
 
     private ArrayList<Student> students = new ArrayList<>();
     public void addStudent(Student s) {
@@ -61,4 +66,89 @@ public class StudentService {
             System.out.println("Student not found!");
         }
     }
+
+    public void markPresent(String name) {
+
+        if (attendance.add(name)) {
+            System.out.println(name + " marked Present");
+        }
+        else {
+            System.out.println(
+                name + " already marked Present"
+            );
+        }
+    }
+
+
+    public void viewPresentStudents() {
+
+        if (attendance.isEmpty()) {
+            System.out.println(
+                "No students marked present"
+            );
+            return;
+        }
+
+        for (String s : attendance) {
+            System.out.println(s);
+        }
+    }
+
+
+    public void viewAlphabeticalStudents() {
+
+        if (attendance.isEmpty()) {
+            System.out.println(
+                "No students marked present"
+            );
+            return;
+        }
+
+        TreeSet<String> sorted =
+                new TreeSet<>(attendance);
+
+        for (String s : sorted) {
+            System.out.println(s);
+        }
+    }
+
+
+    public void checkStudentPresent(String name) {
+
+        if (attendance.contains(name)) {
+            System.out.println(
+                name + " is Present"
+            );
+        }
+        else {
+            System.out.println(
+                name + " is Absent"
+            );
+        }
+    }
+
+
+    public void markAbsent(String name) {
+
+        if (attendance.remove(name)) {
+            System.out.println(
+                name + " marked Absent"
+            );
+        }
+        else {
+            System.out.println(
+                "Student not found in attendance"
+            );
+        }
+    }
+
+
+    public void totalPresentStudents() {
+
+        System.out.println(
+            "Total Present Students: "
+            + attendance.size()
+        );
+    }
+
 }
