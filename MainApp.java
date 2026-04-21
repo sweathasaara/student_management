@@ -18,7 +18,11 @@ public class MainApp {
             System.out.println("9. Check if Student is Present");
             System.out.println("10. Remove Student - Mark Absent");
             System.out.println("11. Show Total Present Students");
-            System.out.println("12. Exit");
+            System.out.println("12. Mark Attendance By Date");
+            System.out.println("13. View Attendance By Date");
+            System.out.println("14. View Class-wise Attendance");
+            System.out.println("15. Show Attendance Summary");       
+             System.out.println("16. Exit");
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
@@ -32,10 +36,11 @@ public class MainApp {
 
                     System.out.print("Enter Name: ");
                     String name = sc.nextLine();
-
-                    service.addStudent(new Student(roll, name));
+                    System.out.print("Enter Class/Section: ");
+                    String studentClass = sc.nextLine();
+                    service.addStudent(
+                    new Student(roll, name, studentClass));
                     break;
-
                 case 2:
                     service.viewStudents();
                     break;
@@ -68,12 +73,8 @@ public class MainApp {
                     service.viewAlphabeticalStudents();
                     break;
                 case 9:
-                    System.out.print(
-                        "Enter Name: "
-                    );
-                    service.checkStudentPresent(
-                        sc.nextLine()
-                    );
+                    System.out.print("Enter Name: ");
+                    service.checkStudentPresent(sc.nextLine());
                     break;
                 case 10:
                     System.out.print("Enter Name: ");
@@ -83,6 +84,28 @@ public class MainApp {
                     service.totalPresentStudents();
                     break;
                 case 12:
+                    System.out.print("Enter Date: ");
+                    String date = sc.nextLine();
+                    System.out.print("Enter Student Name: ");   
+                    String studentName =sc.nextLine();
+                    service.markAttendanceByDate(date,studentName);
+                    break;
+                case 13:
+                    System.out.print("Enter Date: ");
+                    service.viewAttendanceByDate(
+                        sc.nextLine());
+                        break;
+                case 14:
+                    System.out.print("Enter Class: ");
+                    String cls =sc.nextLine();
+                    System.out.print("Enter Date: ");
+                    String d =sc.nextLine();
+                    service.viewClassWiseAttendance(cls,d);
+                    break;
+                case 15:
+                    service.showAttendanceSummary();
+                    break;
+                case 16:
                     System.out.println(  "Exiting...");
                     return;
                 default:

@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
-
+import java.util.Map;
+import java.util.HashMap;
 public class StudentService {
         private Set<String> attendance = new HashSet<>();
 
@@ -66,7 +67,39 @@ public class StudentService {
             System.out.println("Student not found!");
         }
     }
+private Map<String, Set<String>> attendanceByDate =new HashMap<>();
+public void markAttendanceByDate(
+        String date,
+        String studentName) {
 
+    if(!attendanceByDate.containsKey(date)) {
+
+        attendanceByDate.put(
+            date,
+            new HashSet<>()
+        );
+    }
+
+    Set<String> dailyAttendance =
+            attendanceByDate.get(date);
+
+    if(dailyAttendance.add(studentName)) {
+
+        System.out.println(
+            studentName +
+            " marked present on " + date
+        );
+    }
+    else {
+
+        System.out.println(
+            "Duplicate entry not allowed. " +
+            studentName +
+            " already marked present on "
+            + date
+        );
+    }
+}
     public void markPresent(String name) {
 
         if (attendance.add(name)) {
@@ -79,9 +112,69 @@ public class StudentService {
         }
     }
 
+public void viewAttendanceByDate(
+        String date) {
 
+    if(!attendanceByDate.containsKey(date)) {
+
+        System.out.println(
+            "No attendance found for "
+            + date
+        );
+
+        return;
+    }
+
+    System.out.println(
+        "Attendance for " + date
+    );
+
+    for(String s :
+       attendanceByDate.get(date)) {
+
+        System.out.println(s);
+    }
+}
+public void viewClassWiseAttendance(
+        String className,
+        String date) {
+
+    if(!attendanceByDate.containsKey(date)) {
+
+        System.out.println(
+            "No attendance found"
+        );
+
+        return;
+    }
+
+    Set<String> daily =
+            attendanceByDate.get(date);
+
+    for(Student s : students) {
+
+        if(s.getStudentClass()
+              .equalsIgnoreCase(className)
+           &&
+           daily.contains(
+              s.getName())) {
+
+            s.display();
+        }
+    }
+}
+public void showAttendanceSummary() {
+
+    System.out.println(
+        "Attendance Summary"
+    );
+
+    for(String date :
+        attendanceByDate.keySet()) {
+        System.out.println( date + " -> " + attendanceByDate.get(date).size()+ " students present");
+    }
+}
     public void viewPresentStudents() {
-
         if (attendance.isEmpty()) {
             System.out.println(
                 "No students marked present"
@@ -103,7 +196,6 @@ public class StudentService {
             );
             return;
         }
-
         TreeSet<String> sorted =
                 new TreeSet<>(attendance);
 
@@ -111,8 +203,6 @@ public class StudentService {
             System.out.println(s);
         }
     }
-
-
     public void checkStudentPresent(String name) {
 
         if (attendance.contains(name)) {
@@ -126,8 +216,6 @@ public class StudentService {
             );
         }
     }
-
-
     public void markAbsent(String name) {
 
         if (attendance.remove(name)) {
@@ -141,8 +229,6 @@ public class StudentService {
             );
         }
     }
-
-
     public void totalPresentStudents() {
 
         System.out.println(
