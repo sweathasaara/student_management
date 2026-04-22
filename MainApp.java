@@ -22,11 +22,14 @@ public class MainApp {
             System.out.println("13. View Attendance By Date");
             System.out.println("14. View Class-wise Attendance");
             System.out.println("15. Show Attendance Summary");       
-             System.out.println("16. Exit");
+            System.out.println("16. Search Student (Partial Name)");
+            System.out.println("17. Show Absent Students");
+            System.out.println("18. Attendance Percentage per Class");
+             System.out.println("19. Exit");
+
             System.out.print("Enter choice: ");
             int choice = sc.nextInt();
             sc.nextLine();
-
             switch (choice) {
 
                 case 1:
@@ -106,6 +109,25 @@ public class MainApp {
                     service.showAttendanceSummary();
                     break;
                 case 16:
+                    System.out.print("Enter Name: ");
+                    service.searchByPartialName(sc.nextLine());
+                    break;
+
+                case 17:
+                    System.out.print("Enter Class: ");
+                    String c = sc.nextLine();
+                    System.out.print("Enter Date: ");
+                    String dt = sc.nextLine();
+                    service.showAbsentStudents(c, dt);
+                    break;
+                case 18:
+                    System.out.print("Enter Class: ");
+                    String cl = sc.nextLine();
+                    System.out.print("Enter Date: ");
+                    String dte = sc.nextLine();
+                    service.attendancePercentage(cl, dte);
+                    break;
+                case 19:
                     System.out.println(  "Exiting...");
                     return;
                 default:

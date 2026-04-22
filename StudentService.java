@@ -236,5 +236,81 @@ public void showAttendanceSummary() {
             + attendance.size()
         );
     }
+    public void searchByPartialName(String name) {
+
+    boolean found = false;
+
+    for (Student s : students) {
+
+        if (s.getName().toLowerCase().contains(name.toLowerCase())) {
+            s.display();
+            found = true;
+        }
+    }
+    if (!found) {
+        System.out.println("No matching students found!");
+    }
+}
+public void showAbsentStudents(
+        String className,
+        String date) {
+
+    if (!attendanceByDate.containsKey(date)) {
+
+        System.out.println(
+            "No attendance found for this date"
+        );
+        return;
+    }
+    Set<String> present =
+        attendanceByDate.get(date);
+    boolean found = false;
+    for (Student s : students) {
+        if (s.getStudentClass().equalsIgnoreCase(className) && !present.contains(s.getName())) {
+            s.display();
+            found = true;
+        }
+    }
+    if (!found) {
+        System.out.println(
+            "No absent students"
+        );
+    }
+}
+public void attendancePercentage(
+        String className,
+        String date) {
+    if (!attendanceByDate.containsKey(date)) {
+        System.out.println(
+            "No attendance found"
+        );
+        return;
+    }
+    Set<String> present = attendanceByDate.get(date);
+    int total = 0;
+    int presentCount = 0;
+    for (Student s : students) {
+
+        if (s.getStudentClass()
+              .equalsIgnoreCase(className)) {
+
+            total++;
+            if (present.contains(s.getName())) {
+                presentCount++;
+            }
+        }
+    }
+    if (total == 0) {
+        System.out.println("No students in this class");
+        return;
+    }
+    double percentage =
+        (presentCount * 100.0) / total;
+    System.out.println(
+        "Attendance Percentage: "
+        + percentage + "%"
+    );
+    
+}
 
 }
